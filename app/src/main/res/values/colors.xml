@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2D2D2D</color>
+    <color name="colorPrimaryDark">#2D2D2D</color>
+    <color name="colorAccent">#308856</color>
+
+    //system colors
+    <color name="primary_black">#2D2D2D</color>
+    <color name="accent_green">#308856</color>
+    <color name="bg_gray">#f9f9f9</color>
+    <color name="button_green">#21BA45</color>
+    <color name="button_blue">#2185D0</color>
+    <color name="button_red">#FF0000</color>
+
+
+    //Text colors.info_red is same as button_red
+    <color name="info_red">#FF0000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="text_gray">#B5B5B5</color>
+</resources>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_gray"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="26dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/rapport_logo" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Sign In"
+        android:textSize="20sp"
+        android:textColor="@color/button_blue"
+        android:fontFamily="@font/fblack"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="56dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Sign In With Rapport Account"
+        android:textSize="20sp"
+        android:textColor="@color/button_blue"
+        android:fontFamily="@font/rreg"/>
+
+    <EditText
+        android:id="@+id/login_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:textSize="20sp"
+        android:hint="Email"
+        android:fontFamily="@font/freg"
+        android:textColorHint="@color/text_gray"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        />
+
+    <EditText
+        android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Password"
+        android:textSize="20sp"
+        android:fontFamily="@font/freg"
+        android:textColorHint="@color/text_gray"
+        android:ems="10"
+        android:inputType="textPassword"
+        />
+    
+    <Button
+        android:id="@+id/login_signInBtn"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:text="Sign In"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:fontFamily="@font/fbold"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_shape"
+        />
+
+<!--    <FrameLayout-->
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+
+        android:background="@android:color/transparent"
+        >
+
+<!--        <Button-->
+            android:id="@+id/login_facebook_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="LOGIN WITH FACEBOOK"
+            android:background="@drawable/button_shape_2"
+            android:fontFamily="@font/freg"
+            android:textSize="20sp"
+            android:textColor="#3b5998"
+            />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="30dp"
+        android:background="@android:color/transparent"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/login_google_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_google"
+            android:clickable="true"
+            android:fontFamily="@font/freg"
+            android:gravity="center"
+            android:text="Sign In With Google"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/google_icon" />
+
+
+    </FrameLayout>
+
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/login_create_account_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="10dp"
+        android:text="Create an Account"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:textColor="@color/button_green"
+        android:fontFamily="@font/rreg"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+</LinearLayout>
