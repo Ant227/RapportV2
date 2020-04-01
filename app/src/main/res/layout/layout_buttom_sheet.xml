@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetContainer"
+    android:layout_width="match_parent"
+    android:background="@drawable/bottom_sheet_background"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Profile"
+        android:padding="15dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/android_head"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pen name"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/profile_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#000011"
+                />
+
+            <TextView
+                android:id="@+id/profile_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="work"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#000011"
+                />
+            <TextView
+                android:id="@+id/profile_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="location"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#000011"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/profile_university"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="University of Medicine, Mandalay"
+            android:gravity="center"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/profile_grad_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Grad 2019 march"
+            android:gravity="center"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/profile_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I am iron man. Persona and testing for app design.\n Nice to meet you"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/buttonSeePost"
+        android:layout_marginStart="120dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button_background"
+        android:layout_marginBottom="20dp"
+        android:text="See My Posts"/>
+
+
+</LinearLayout>

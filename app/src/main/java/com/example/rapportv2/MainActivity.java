@@ -4,20 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.view.LayoutInflater;
 import android.view.View;
-
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -33,7 +36,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PostAdapter.OnItemClicking {
     private CircleImageView profile;
 
     private FirebaseAuth mAuth;
@@ -55,15 +58,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         mProgressCircle = findViewById(R.id.progress_circle);
 
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         SettingCustomToolbar();
-
-
-
 
         setUpRecyclerView();
 
@@ -81,14 +80,13 @@ public class MainActivity extends AppCompatActivity {
     {
         Query query = PostRef.orderBy("counter", Query.Direction.DESCENDING);
 
-        PagedList.Config config = new PagedList.Config.Builder()
-                .setInitialLoadSizeHint(10)
-                .setPageSize(5)
-                .build();
+//        PagedList.Config config = new PagedList.Config.Builder()
+//                .setInitialLoadSizeHint(10)
+//                .setPageSize(5)
+//                .build();
 
-        FirestorePagingOptions<Posts> options = new FirestorePagingOptions.Builder<Posts>()
-                .setLifecycleOwner(this)
-                .setQuery(query,config,Posts.class)
+        FirestoreRecyclerOptions<Posts> options = new FirestoreRecyclerOptions.Builder<Posts>()
+                .setQuery(query,Posts.class)
                 .build();
 
         adapter = new PostAdapter(options);
@@ -102,7 +100,72 @@ public class MainActivity extends AppCompatActivity {
 
             recyclerView.setAdapter(adapter);
 
+            adapter.setOnItemClickListener(new PostAdapter.OnItemClicking() {
+                @Override
+                public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
 
+                    Posts posts = documentSnapshot.toObject(Posts.class);
+                    String uid = posts.getUid();
+
+
+
+
+                    final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MainActivity.this,
+                            R.style.BottomSheetDialogTheme);
+
+                    final View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                            .inflate(R.layout.layout_buttom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
+
+
+                    final TextView profileName,profileWork,profileLocation,profileUniversity,profileGradDate,profileDescription;
+
+                    profileName = bottomSheetView.findViewById(R.id.profile_username);
+                    profileWork = bottomSheetView.findViewById(R.id.profile_work);
+                    profileLocation = bottomSheetView.findViewById(R.id.profile_location);
+
+                    profileUniversity = bottomSheetView.findViewById(R.id.profile_university);
+                    profileGradDate = bottomSheetView.findViewById(R.id.profile_grad_date);
+
+                    profileDescription = bottomSheetView.findViewById(R.id.profile_description);
+
+                    UsersRef.child(uid).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+
+                              String  username = dataSnapshot.child("A_name").getValue().toString();
+                                String  city = dataSnapshot.child("C_city").getValue().toString();
+                                String job   = dataSnapshot.child("B_job").getValue().toString();
+                                String university = dataSnapshot.child("E_university").getValue().toString();
+                                String gradDate = dataSnapshot.child("F_dateOfGraduation").getValue().toString();
+
+                                profileName.setText(username);
+                                profileWork.setText(city);
+                                profileLocation.setText(job);
+                                profileUniversity.setText(university);
+                                profileGradDate.setText("Graduated on : "+gradDate);
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                    bottomSheetView.findViewById(R.id.buttonSeePost).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText( MainActivity.this,"see my posts", Toast.LENGTH_SHORT).show();
+                            bottomSheetDialog.dismiss();
+                        }
+                    });
+                    bottomSheetDialog.setContentView(bottomSheetView);
+                    bottomSheetDialog.show();
+                }
+            });
 
     }
 
@@ -114,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Good!", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -123,7 +186,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
 
+
         super.onStart();
+        adapter.startListening();
         PostRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -143,7 +208,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
 
     private void SendUserToLoginActivity() {
 
@@ -181,7 +250,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
 
+    }
 }
 
 
