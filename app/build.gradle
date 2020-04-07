@@ -43,4 +43,3 @@ dependencies {
 
     implementation 'android.arch.paging:runtime:2.1.1'
 }
- 
